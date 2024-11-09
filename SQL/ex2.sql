@@ -67,7 +67,7 @@ CREATE TABLE staffContact (
     borrowerID INT NOT NULL,
  borrowingID INT NOT NULL,
     FOREIGN KEY (borrowerID) REFERENCES borrower(borrowerID),
-    FOREIGN KEY (borrowingID) REFERENCES borrowing(borrowingID),
+    FOREIGN KEY (borrowingID) REFERENCES borrowings(borrowingID),
     PRIMARY KEY (borrowerID)
 );
 
