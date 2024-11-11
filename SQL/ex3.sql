@@ -1,19 +1,39 @@
 INSERT INTO book (ISBN, title, publishedDate) 
-VALUES ('9780062420701', 'To Kill A Mockingbird', '1960-07-11');
+SELECT '9780062420701', 'To Kill A Mockingbird', '1960-07-11'
+WHERE NOT EXISTS (
+    SELECT 1 FROM book WHERE ISBN = '9780062420701'
+);
 
 INSERT INTO book (ISBN, title, publishedDate)
-VALUES 
-    ('9781416980063', 'Dork Diaries', '2009-06-02'),
-	('9780439064873', 'Harry Potter and the Chamber of Secrets', '1998-06-02'),
-	('9780439559818', 'Geronimo Stilton: The Curse of the Cheese Pyramid', '2004-07-01');
+SELECT '9781416980063', 'Dork Diaries', '2009-06-02'
+WHERE NOT EXISTS (
+    SELECT 1 FROM book WHERE ISBN = '9781416980063'
+)
+UNION ALL
+SELECT '9780439064873', 'Harry Potter and the Chamber of Secrets', '1998-06-02'
+WHERE NOT EXISTS (
+    SELECT 1 FROM book WHERE ISBN = '9780439064873'
+)
+UNION ALL
+SELECT '9780439559818', 'Geronimo Stilton: The Curse of the Cheese Pyramid', '2004-07-01'
+WHERE NOT EXISTS (
+    SELECT 1 FROM book WHERE ISBN = '9780439559818'
+);
     
 INSERT INTO book (ISBN, title, publishedDate)
 SELECT * FROM (
     SELECT '9780359199259', 'Murder on the Orient Express', '1934-01-01'
+    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780359199259')
+    
     UNION ALL
+    
     SELECT '9780141036137', 'Animal Farm', '1945-08-17'
+    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780141036137')
+    
     UNION ALL
+    
     SELECT '9780375714832', 'Persepolis', '2007-06-27'
+    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780375714832')
 ) AS dummy;
 
 SELECT * FROM book;
