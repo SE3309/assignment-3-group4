@@ -1,54 +1,7 @@
 #
-# TABLE STRUCTURE FOR: bBorrowings
-#
-
-DROP TABLE IF EXISTS `bBorrowings`;
-
-CREATE TABLE `bBorrowings` (
-  `borrowerID` int(11) NOT NULL,
-  `borrowingID` int(11) NOT NULL,
-  PRIMARY KEY (`borrowerID`),
-  KEY `borrowingID` (`borrowingID`),
-  CONSTRAINT `bBorrowings_ibfk_1` FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`),
-  CONSTRAINT `bBorrowings_ibfk_2` FOREIGN KEY (`borrowingID`) REFERENCES `borrowing` (`borrowingID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `bBorrowings` VALUES
-(18,18),
-(25,7),
-(29,5),
-(42,26),
-(70,28),
-(72,12),
-(78,6),
-(81,26),
-(87,29),
-(94,8),
-(103,23),
-(107,9),
-(109,12),
-(111,30),
-(113,6),
-(115,14),
-(121,27),
-(140,2),
-(143,21),
-(147,7),
-(148,2),
-(155,3),
-(156,4),
-(169,21),
-(171,29),
-(178,18),
-(181,2),
-(193,27),
-(195,20),
-(200,15);
-
-#
 # TABLE STRUCTURE FOR: book
 #
-
+SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `book`;
 
 CREATE TABLE `book` (
@@ -59,11 +12,11 @@ CREATE TABLE `book` (
   UNIQUE KEY `ISBN` (`ISBN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00305aec-e122', 'Et reprehenderit consequuntur et nesciunt.', '2004-07-20');
-INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00651b6f-c3e5', 'Tempora sit aut id ipsum et rem.', '1984-06-01');
-INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00cd1241-b00d', 'Placeat error vel incidunt est.', '2006-07-31');
-INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00d70000-5ba0', 'Architecto eos velit ut qui.', '2011-02-27');
-INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00d758d9-2469', 'Sunt officia quos consectetur sed et rerum.', '2024-03-01');
+INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00305aec-e122', 'To Kill A Mockingbird', '1960-07-11');
+INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00651b6f-c3e5', 'Dork Diaries', '2009-06-02');
+INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00cd1241-b00d', 'Harry Potter and the Chamber of Secrets', '1998-06-02');
+INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00d70000-5ba0', 'Geronimo Stilton: The Curse of the Cheese Pyramid', '2004-07-01');
+INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00d758d9-2469', 'Murder on the Orient Express', '1934-01-01');
 INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('010c06d6-0c9e', 'Optio voluptas minus molestias magni quod quia.', '2012-07-15');
 INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('01120091-7b95', 'Odit tempora provident numquam voluptatem voluptatem.', '2016-05-25');
 INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('01356bc8-6a85', 'Deserunt maiores sint ratione aliquam iste occaecati adipisci.', '1995-02-08');
@@ -2075,12 +2028,12 @@ CREATE TABLE `bookAuthor` (
   CONSTRAINT `bookAuthor_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00305aec-e122', 'Neha Schowalter MD');
-INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00651b6f-c3e5', 'Wilmer Miller');
-INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00cd1241-b00d', 'Myra Hand');
-INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00d70000-5ba0', 'Arianna Vandervort');
+INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00305aec-e122', 'Harper Lee');
+INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00651b6f-c3e5', 'Rachel Renée Russell');
+INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00cd1241-b00d', 'J. K. Rowling');
+INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00d70000-5ba0', 'Elisabetta Dami');
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00d758d9-2469', 'Mrs. Santina Metz DDS');
-INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('010c06d6-0c9e', 'Humberto Morissette');
+INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('010c06d6-0c9e', 'Agatha Christie');
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('01120091-7b95', 'Sandra Greenfelder');
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('01356bc8-6a85', 'Margarett Trantow V');
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('01448b6b-185b', 'Miss Matilde Vandervort III');
@@ -4140,7 +4093,7 @@ CREATE TABLE `bookGenre` (
   CONSTRAINT `bookGenre_ibfk_2` FOREIGN KEY (`genreType`) REFERENCES `genre` (`genreType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00305aec-e122', 'ab');
+INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00305aec-e122', 'Thriller');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('0285872e-4cd1', 'ab');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('044089b0-e8a0', 'ab');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('063880e9-0582', 'ab');
@@ -4240,7 +4193,7 @@ INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f6b9d790-2e65', 'ab');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f90f262a-1054', 'ab');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fb5a224d-995e', 'ab');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fe381a12-5ca1', 'ab');
-INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00651b6f-c3e5', 'cupiditate');
+INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00651b6f-c3e5', 'Realistic Fiction');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('02b5e98a-745e', 'cupiditate');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('044159ee-c229', 'cupiditate');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('06594c08-4c15', 'cupiditate');
@@ -4340,7 +4293,7 @@ INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f6f3d535-49ef', 'cupidita
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f91f7ef4-8739', 'cupiditate');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fbc03371-1a28', 'cupiditate');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fe4a411f-e18b', 'cupiditate');
-INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00cd1241-b00d', 'delectus');
+INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00cd1241-b00d', 'Action');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('02b71d19-9587', 'delectus');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('04476061-c736', 'delectus');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('066534b4-0bb1', 'delectus');
@@ -4440,7 +4393,7 @@ INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f7083ab4-5c08', 'delectus
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f92cce53-6fb5', 'delectus');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fbec06cb-14ed', 'delectus');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fe598b03-16a2', 'delectus');
-INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00d70000-5ba0', 'dolor');
+INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00d70000-5ba0', 'Adventure');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('02db0f04-cf9e', 'dolor');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('04859699-ff57', 'dolor');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('0680fa8c-a21d', 'dolor');
@@ -4540,7 +4493,7 @@ INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f70ea529-62b8', 'dolor');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('f938e289-8da6', 'dolor');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fc36db23-d541', 'dolor');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fe5a3b71-bbbd', 'dolor');
-INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00d758d9-2469', 'ea');
+INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00d758d9-2469', 'Mystery');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('031caad2-d32a', 'ea');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('049bcba4-1be5', 'ea');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('069adeef-29ba', 'ea');
@@ -6157,11 +6110,11 @@ CREATE TABLE `borrower` (
   UNIQUE KEY `bEmail` (`bEmail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (1, '2023-10-06', '494eddaebcdf9a61bebfdb35199934d1ec5fe960', 'lincoln29@example.net');
-INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (2, '1972-02-26', '21caeb119ce75f6b0a9ff8064d73dfd5974cc4e2', 'reginald54@example.net');
-INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (3, '2020-07-13', '66bd251bc3932834f1c95b96337c25c2f2de6bfd', 'amara57@example.com');
-INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (4, '1987-12-27', '25f6acb62842a72e5b08e41143b4731d024d0ba2', 'norwood.turner@example.org');
-INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (5, '2001-06-20', '8d2cc3f32d38d0d347094d1fcf498b236245147f', 'jessika.crooks@example.org');
+INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (1, '2023-10-06', '494eddaebcdf9a61bebfdb35199934d1ec5fe960', 'lincoln29@gmail.com');
+INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (2, '1972-02-26', '21caeb119ce75f6b0a9ff8064d73dfd5974cc4e2', 'reginald54@uwo.ca');
+INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (3, '2020-07-13', '66bd251bc3932834f1c95b96337c25c2f2de6bfd', 'amara57@gmail.com');
+INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (4, '1987-12-27', '25f6acb62842a72e5b08e41143b4731d024d0ba2', 'norwood.turner@uwo.ca');
+INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (5, '2001-06-20', '8d2cc3f32d38d0d347094d1fcf498b236245147f', 'jessika.crooks@gmail.com');
 INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (6, '2011-10-09', '8e5c51927297034c4a6be23946ba73c65a02d687', 'chandler33@example.com');
 INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (7, '1973-12-05', '8f71da09d206e656dca1f34baa5cabb2d9dd8575', 'madie.nicolas@example.org');
 INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (8, '2022-01-30', 'a07d180d775f4e50aa49496bfb2441c0d2ac7314', 'ardith66@example.net');
@@ -6377,7 +6330,7 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('adella73@example.com'
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('adonis85@example.net', 'Emilie Lang');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('aiyana.boyer@example.org', 'Aylin Thiel');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('ally29@example.com', 'Mr. Hal Koss MD');
-INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('amara57@example.com', 'London Parker');
+INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('amara57@gmail.com', 'London Parker');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('angelina99@example.org', 'Arianna Jerde III');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('annabel63@example.org', 'Amir Franecki');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('ardith66@example.net', 'Anastacio Schumm');
@@ -6454,7 +6407,7 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jazmyne.kutch@example
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jdare@example.org', 'Arjun Dibbert');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jdavis@example.net', 'Willow Moore');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jensen30@example.org', 'Miss Bianka Schroeder PhD');
-INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jessika.crooks@example.org', 'Connie Doyle');
+INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jessika.crooks@gmail.com', 'Connie Doyle');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jhackett@example.com', 'Madisyn Kub');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jhamill@example.net', 'Tyrel Wintheiser');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('jillian19@example.org', 'Prof. Kaleigh Gorczany III');
@@ -6479,7 +6432,7 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('laurianne.volkman@exa
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('leda.rogahn@example.com', 'Gillian Cruickshank V');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('leonor06@example.net', 'Don Franecki');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('leonor95@example.net', 'Mrs. Maurine Heathcote III');
-INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('lincoln29@example.net', 'Edwina Jacobi');
+INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('lincoln29@gmail.com', 'Edwina Jacobi');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('linda19@example.net', 'Ms. Kallie Haag');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('lsteuber@example.net', 'May Glover');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('lvonrueden@example.org', 'Braeden Bradtke');
@@ -6500,7 +6453,7 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nicole.luettgen@examp
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nikolaus.susanna@example.org', 'Tom Douglas Sr.');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nitzsche.sean@example.org', 'Kali Braun');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nona95@example.com', 'Naomi Cartwright');
-INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('norwood.turner@example.org', 'Ali Corkery IV');
+INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('norwood.turner@uwo.ca', 'Ali Corkery IV');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nthompson@example.com', 'Miss Abbey Predovic');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('nwisozk@example.org', 'Emmett Schinner');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('o\'conner.ed@example.org', 'Coby Mante');
@@ -6516,7 +6469,7 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('qbecker@example.com',
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('qcremin@example.org', 'Dr. Jewell O\'Hara DVM');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('ratke.emie@example.org', 'Aryanna Schultz');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('raynor.adrianna@example.net', 'Corine Mitchell');
-INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('reginald54@example.net', 'Columbus Morissette');
+INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('reginald54@uwo.ca', 'Columbus Morissette');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('reginald76@example.net', 'Prof. Titus Schinner III');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('rippin.abigayle@example.org', 'Ms. Annie Wehner MD');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('rippin.marcelo@example.com', 'Mrs. Mara Koelpin I');
@@ -6574,6 +6527,53 @@ INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('zfritsch@example.com'
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('zking@example.com', 'Enrique Wolff');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('zondricka@example.com', 'Zoie O\'Kon');
 
+#
+# TABLE STRUCTURE FOR: bBorrowings
+#
+
+DROP TABLE IF EXISTS `bBorrowings`;
+
+CREATE TABLE `bBorrowings` (
+  `borrowerID` int(11) NOT NULL,
+  `borrowingID` int(11) NOT NULL,
+  PRIMARY KEY (`borrowerID`),
+  KEY `borrowingID` (`borrowingID`),
+  CONSTRAINT `bBorrowings_ibfk_1` FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`),
+  CONSTRAINT `bBorrowings_ibfk_2` FOREIGN KEY (`borrowingID`) REFERENCES `borrowing` (`borrowingID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `bBorrowings` VALUES
+(18,18),
+(25,7),
+(29,5),
+(42,26),
+(70,28),
+(72,12),
+(78,6),
+(81,26),
+(87,29),
+(94,8),
+(103,23),
+(107,9),
+(109,12),
+(111,30),
+(113,6),
+(115,14),
+(121,27),
+(140,2),
+(143,21),
+(147,7),
+(148,2),
+(155,3),
+(156,4),
+(169,21),
+(171,29),
+(178,18),
+(181,2),
+(193,27),
+(195,20),
+(200,15);
+
 
 #
 # TABLE STRUCTURE FOR: borrowings
@@ -6584,7 +6584,7 @@ DROP TABLE IF EXISTS `borrowings`;
 CREATE TABLE `borrowings` (
   `borrowingID` int(11) NOT NULL AUTO_INCREMENT,
   `borrowDate` date NOT NULL,
-  `returnDate` date NOT NULL,
+  `returnDate` date,
   `status` enum('On Hold','Returned','Late') NOT NULL,
   `borrowerID` int(11) NOT NULL,
   `ISBN` char(13) NOT NULL,
@@ -6602,9 +6602,9 @@ INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (2, '2004-07-08', '2004-11-26', 'On Hold', 2, '00651b6f-c3e5', 2);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (3, '1992-03-29', '1979-06-06', 'Returned', 3, '00cd1241-b00d', 3);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (4, '2024-01-09', '2011-11-19', 'On Hold', 4, '00d70000-5ba0', 4);
-INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (5, '2022-02-19', '2017-12-17', 'Late', 5, '00d758d9-2469', 5);
+INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (5, '2022-02-19', NULL, 'Late', 29, '00d758d9-2469', 5);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (6, '1974-05-05', '1979-01-01', 'Returned', 6, '010c06d6-0c9e', 6);
-INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (7, '1977-01-18', '2005-02-22', 'On Hold', 7, '01120091-7b95', 7);
+INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (7, '1977-01-18', '1977-01-31', 'Returned', 25, '01120091-7b95', NULL);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (8, '2014-04-12', '2009-12-30', 'Late', 8, '01356bc8-6a85', 8);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (9, '1988-06-30', '2023-01-25', 'On Hold', 9, '01448b6b-185b', 9);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (10, '1986-08-06', '1991-06-29', 'On Hold', 10, '01b3e5a9-d666', 10);
@@ -6615,7 +6615,7 @@ INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (15, '2010-01-23', '2002-05-13', 'Returned', 15, '01fbe81d-da8d', 15);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (16, '1970-11-03', '2015-07-27', 'On Hold', 16, '02102517-7eb0', 16);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (17, '1986-11-08', '1983-08-08', 'Returned', 17, '0217602a-07d4', 17);
-INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (18, '1991-08-19', '2023-07-03', 'On Hold', 18, '0240d199-18e2', 18);
+INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (18, '2024-11-03', NULL, 'On Hold', 18, '0240d199-18e2', NULL);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (19, '2020-04-12', '1970-10-24', 'Late', 19, '025fde2e-1995', 19);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (20, '2002-01-05', '1983-01-22', 'Returned', 20, '026facb0-ff02', 20);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (21, '2011-08-04', '2007-11-06', 'Late', 21, '0285872e-4cd1', 21);
@@ -6623,9 +6623,9 @@ INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (23, '1988-01-11', '2006-05-05', 'On Hold', 23, '02b71d19-9587', 23);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (24, '1990-07-16', '2014-05-08', 'On Hold', 24, '02db0f04-cf9e', 24);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (25, '1992-08-31', '2018-07-25', 'On Hold', 25, '031caad2-d32a', 25);
-INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (26, '2006-05-04', '1980-06-05', 'On Hold', 26, '0321afa7-a454', 26);
+INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (26, '2006-05-04', '2007-06-04', 'Returned', 42, '0321afa7-a454', 26);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (27, '2018-09-10', '1981-02-19', 'Returned', 27, '0343c4c9-2bc7', 27);
-INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (28, '1983-06-25', '2017-05-27', 'Returned', 28, '034e9417-c59f', 28);
+INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (28, '2017-04-27', '2017-05-27', 'Returned', 70, '034e9417-c59f', NULL);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (29, '2003-07-19', '2018-02-19', 'Late', 29, '034fa8bb-0957', 29);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (30, '2024-05-09', '2002-02-25', 'On Hold', 30, '03570cb1-a242', 30);
 
@@ -6646,56 +6646,56 @@ CREATE TABLE `fines` (
   CONSTRAINT `fines_ibfk_1` FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (1, 1, '1982-03-28', '2022-10-25');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (2, 2, '1981-02-23', '1993-09-27');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (3, 3, '2017-05-10', '1986-09-02');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (4, 4, '1977-09-22', '1993-07-23');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (5, 5, '2010-06-05', '1982-05-17');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (6, 6, '2007-02-20', '1995-12-09');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (7, 7, '2021-08-28', '1977-01-17');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (1, 1, '2022-10-25', '2022-10-27');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (2, 2, '1993-09-27', '1993-09-30');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (3, 3, '2017-05-10', '2017-05-20');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (4, 4, '1977-09-22', '1977-09-23');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (5, 5, '2010-06-05', '2010-07-05');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (6, 6, '2007-02-20', '2007-02-24');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (7, 7, '2021-08-28', '2021-08-29');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (8, 8, '1973-12-15', '2009-12-31');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (9, 9, '1997-02-10', '1976-02-04');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (10, 10, '1988-01-11', '1976-11-06');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (9, 9, '1997-02-10', '1997-02-17');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (10, 10, '1976-11-06', '1976-11-20');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (11, 11, '1984-04-02', '1990-11-19');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (12, 12, '2019-09-25', '1999-04-28');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (12, 12, '2019-09-25', '2019-09-28');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (13, 13, '1970-04-16', '2021-08-06');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (14, 14, '1970-11-10', '1993-03-25');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (15, 15, '2001-12-04', '2016-01-15');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (16, 16, '2012-08-10', '1990-08-18');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (16, 16, '2012-08-10', '2012-08-17');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (17, 17, '1970-09-13', '1975-11-15');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (18, 18, '1988-07-26', '2008-04-05');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (19, 19, '1993-11-04', '1975-08-16');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (20, 20, '2014-11-01', '1998-12-06');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (21, 21, '2013-10-24', '1995-06-29');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (22, 22, '1995-01-09', '1974-03-18');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (19, 19, '1993-11-04', '1993-11-26');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (20, 20, '2014-11-01', '2014-11-23');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (21, 21, '2013-10-24', '2013-10-27');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (22, 22, '1995-01-09', '1995-01-31');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (23, 23, '1974-03-30', '1984-04-29');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (24, 24, '1976-10-28', '1972-11-24');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (24, 24, '1976-10-28', '1979-11-24');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (25, 25, '1990-10-22', '2016-09-04');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (26, 26, '2004-12-28', '2019-11-05');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (27, 27, '2024-02-10', '1995-03-26');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (27, 27, '2024-02-10', '2024-03-26');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (28, 28, '2015-01-23', '2018-04-09');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (29, 29, '1996-06-25', '1977-03-02');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (29, 29, '1996-06-25', '1997-03-02');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (30, 30, '1982-11-28', '1987-08-20');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (31, 31, '1989-03-12', '2009-04-20');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (32, 32, '1987-04-28', '1987-09-28');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (33, 33, '1975-05-16', '1975-03-29');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (33, 33, '1975-05-16', '1975-08-29');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (34, 34, '1992-10-04', '1998-09-16');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (35, 35, '2009-07-12', '1980-10-14');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (35, 35, '2009-07-12', '2009-10-14');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (36, 36, '2001-04-27', '2021-09-18');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (37, 37, '2000-02-21', '1982-11-27');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (38, 38, '1990-12-16', '1985-11-23');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (39, 39, '1980-06-05', '1996-02-13');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (37, 37, '2000-02-21', '2000-11-27');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (38, 38, '1990-12-16', '1991-11-23');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (39, 39, '1995-06-05', '1996-02-13');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (40, 40, '2015-12-22', '2023-08-02');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (41, 41, '2012-04-16', '2017-06-02');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (42, 42, '1977-09-05', '2003-04-03');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (43, 43, '1971-07-09', '1971-02-10');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (43, 43, '1971-07-09', '1971-11-10');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (44, 44, '1976-09-05', '2001-06-26');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (45, 45, '1991-09-07', '2015-01-05');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (46, 46, '1991-08-13', '2000-05-28');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (47, 47, '1993-09-06', '2002-01-31');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (48, 48, '1979-04-14', '2016-06-13');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (49, 49, '1998-08-01', '2021-02-07');
-INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (50, 50, '1985-04-01', '1976-07-24');
+INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (50, 50, '1985-04-01', '1986-07-24');
 
 
 #
@@ -6731,6 +6731,11 @@ INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('tempore', 'Dolor 
 INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('vero', 'Sint quaerat omnis reiciendis pariatur quos iste odit cupiditate. Incidunt esse aut iste tempora qui quia accusantium. Quo quasi quia est adipisci aut voluptas itaque. Et quis eius vero qui doloremque est voluptate.');
 INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('voluptas', 'Exercitationem sapiente esse necessitatibus. Ad quidem neque esse quisquam. Dolor sunt aut inventore suscipit dolorem. Cumque nostrum sit omnis provident consequatur.');
 INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('voluptatem', 'Eligendi aut error quis vel. Ut eum aspernatur voluptate voluptatibus. Dolorum non asperiores consequatur. Placeat distinctio eos molestiae.');
+INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('Thriller', 'A genre of fiction with numerous, often overlapping, subgenres, including crime, horror, and detective fiction.');
+INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('Realistic Fiction', 'A genre consisting of stories that could have actually occurred to people or animals in a believable setting.');
+INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('Action', 'A genre in literature that focuses on stories involving high-stakes, high-energy, and fast-paced events.');
+INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('Adventure', 'A genre of fiction that usually presents danger, or gives the reader a sense of excitement.');
+INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('Mystery', 'A genre of fiction that follows a crime (like a murder or a disappearance) from the moment it is committed to the moment it is solved.');
 
 
 #
@@ -6750,11 +6755,11 @@ CREATE TABLE `historyLog` (
   CONSTRAINT `historyLog_ibfk_1` FOREIGN KEY (`staffID`) REFERENCES `staff` (`staffID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (1, '1993-11-16', 1, 'Sit quia nulla dolores minus quas natus. Nisi dolor aperiam earum dignissimos. Temporibus aspernatur harum non sit non.', 'Return');
-INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (2, '2024-08-23', 2, 'Delectus nam officiis id et corporis sed. Qui iusto et natus commodi culpa porro quasi. Provident iste harum et et incidunt iure.', 'Return');
-INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (3, '2001-08-08', 3, 'Voluptas expedita aperiam aut voluptatem officiis. Enim occaecati ut magni illo delectus in aliquam. Hic doloribus magni amet sed culpa. Ratione debitis veniam hic quia.', 'Damage');
-INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (4, '1976-09-19', 4, 'Amet nemo expedita et repudiandae. Neque similique cum molestiae cupiditate atque eligendi. Incidunt sed occaecati a fuga qui. Aut rerum cum itaque neque.', 'Damage');
-INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (5, '1970-08-18', 5, 'Quod rerum quasi dolores natus eveniet. Dolorem repellendus in id. Voluptates at perspiciatis rerum rerum laudantium ut.', 'Damage');
+INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (1, '2020-11-16', 1, 'Book with ISBN 00305aec-e122 returned', 'Return');
+INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (2, '2021-08-23', 2, 'Book with ISBN 02b5e98a-745e returned', 'Return');
+INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (3, '2022-08-08', 3, 'Book with ISBN 00305aec-e122 was damaged', 'Damage');
+INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (4, '2023-09-19', 4, 'Book with ISBN 02b5e98a-745e was damaged', 'Damage');
+INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (5, '2024-08-18', 5, 'Book with ISBN 00305aec-e122 Borrowed by Borrower 24', 'Borrowing');
 INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (6, '1997-03-23', 6, 'Ad ut est et natus ad. Quia deserunt maiores quod. Voluptatem et ut velit quis. Reiciendis voluptatibus ea perspiciatis ut ullam voluptas ea. Atque culpa id ratione.', 'Return');
 INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (7, '1983-12-19', 7, 'Quis eaque eum perferendis aliquam asperiores. Dicta quo fuga quia aut quisquam. Quas excepturi consectetur et nulla voluptatum ad voluptas non.', 'Damage');
 INSERT INTO `historyLog` (`logID`, `generatedDate`, `staffID`, `text`, `type`) VALUES (8, '2024-08-24', 8, 'Est tempore et et sunt. Suscipit error voluptatibus inventore impedit quisquam. Ut et error praesentium optio.', 'Damage');
@@ -6872,10 +6877,10 @@ CREATE TABLE `reviews` (
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (1, '2007-04-15', 1, 'Sunt quaerat quas magni perferendis temporibus temporibus est. Ullam iure at temporibus laboriosam et vitae. Fugiat accusamus eum vero quas sint tempora similique.', 5, '00305aec-e122');
-INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (2, '2016-05-02', 2, 'Culpa rerum voluptas iste repudiandae in sequi. Veniam qui laudantium assumenda repellendus. Accusantium aut dolores maxime error. Dolore repellendus a dolores culpa voluptatem saepe.', 2, '00651b6f-c3e5');
-INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (3, '2002-05-23', 3, '', 6, '00cd1241-b00d');
-INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (4, '1991-10-01', 4, '', 2, '00d70000-5ba0');
+INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (1, '2024-04-15', 1, 'Great Book!', 5, '00305aec-e122');
+INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (2, '2016-05-02', 2, 'Interesting!', 2, '00651b6f-c3e5');
+INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (3, '2021-05-23', 3, '', 6, '00cd1241-b00d');
+INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (4, '1991-10-01', 4, 'Could not finish it.', 2, '00d70000-5ba0');
 INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (5, '2012-02-12', 5, '', 2, '00d758d9-2469');
 INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (6, '2003-05-09', 6, '', 1, '010c06d6-0c9e');
 INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `rating`, `ISBN`) VALUES (7, '2009-02-18', 7, '', 8, '01120091-7b95');
@@ -8889,11 +8894,11 @@ CREATE TABLE `staff` (
   UNIQUE KEY `sEmail` (`sEmail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (1, 'mfeeney@example.org', '86a6b7127c2bc89405b356a441551a81182e9d0d', 'nihil');
-INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (2, 'forn@example.net', 'a1ab831f5448a66090a8f3d3094234f54b5344f9', 'nihil');
-INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (3, 'fadel.blanche@example.org', '53f299a7226b6605abfc6403cd262c85d0775927', 'dolorem');
-INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (4, 'lboyle@example.com', '9926b1697304e0ee914a1ad30b7aa68ae3b203dc', 'similique');
-INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (5, 'ullrich.albert@example.com', '3e1a750265b157ff63301d5e41f1a0edbd5eaaac', 'quos');
+INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (1, 'mfeeney@gmail.com', '86a6b7127c2bc89405b356a441551a81182e9d0d', 'Librarian');
+INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (2, 'forn@uwo.ca', 'a1ab831f5448a66090a8f3d3094234f54b5344f9', 'Admin');
+INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (3, 'fadel.blanche@gmail.com', '53f299a7226b6605abfc6403cd262c85d0775927', 'Intern');
+INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (4, 'lboyle@uwo.ca', '9926b1697304e0ee914a1ad30b7aa68ae3b203dc', 'Librarian');
+INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (5, 'ullrich.albert@gmail.com', '3e1a750265b157ff63301d5e41f1a0edbd5eaaac', 'Admin');
 INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (6, 'imelda.mcclure@example.com', '68fc04e8a0989a855196f23970df22ecd4b89fcb', 'similique');
 INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (7, 'joan33@example.org', '38dc0bf617d9e4b85e39967281c1852297949cf1', 'tempora');
 INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (8, 'candida69@example.net', 'c6d0f7c619df39285011de967f97beced9fd687b', 'ut');
@@ -8928,8 +8933,8 @@ CREATE TABLE `staffContact` (
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('alvina.macejkovic@example.net', 'Pascale Considine');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('candida69@example.net', 'Danielle Wisoky I');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('crooks.lolita@example.com', 'Dr. Frederique Considine PhD');
-INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('fadel.blanche@example.org', 'Mr. Oscar Mraz I');
-INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('forn@example.net', 'Velda Kertzmann');
+INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('fadel.blanche@gmail.com', 'Mr. Oscar Mraz I');
+INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('forn@uwo.ca', 'Velda Kertzmann');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('geraldine.raynor@example.net', 'Judson Fritsch');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('gilda72@example.com', 'Dameon Turcotte');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('hahn.melany@example.org', 'Everardo Ondricka V');
@@ -8937,13 +8942,13 @@ INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('imelda.mcclure@example.co
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('isaac68@example.net', 'Pearline Brakus I');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('joan33@example.org', 'Ericka Frami');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('lacey.harvey@example.com', 'Prof. Dixie Cremin');
-INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('lboyle@example.com', 'Lempi Goldner');
+INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('lboyle@uwo.ca', 'Lempi Goldner');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('leuschke.dallas@example.com', 'Ms. Theresa Reynolds');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('loren.rolfson@example.com', 'Maximus Batz Sr.');
-INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('mfeeney@example.org', 'Judge Lind');
+INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('mfeeney@gmail.com', 'Judge Lind');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('pbergnaum@example.com', 'Prof. Freddy Zieme');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('price13@example.org', 'Mr. Oliver Langosh IV');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('schumm.eliza@example.com', 'Jasmin Champlin Sr.');
-INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('ullrich.albert@example.com', 'Edwardo Farrell');
+INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('ullrich.albert@gmail.com', 'Edwardo Farrell');
 
 

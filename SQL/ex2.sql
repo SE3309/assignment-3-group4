@@ -87,7 +87,7 @@ CREATE TABLE staffContact (
    CREATE TABLE borrowings (
     borrowingID INT NOT NULL AUTO_INCREMENT,
     borrowDate DATE NOT NULL,
-    returnDate DATE NOT NULL,
+    returnDate DATE,
     status ENUM('On Hold', 'Returned', 'Late') NOT NULL,
     borrowerID INT NOT NULL,
     ISBN CHAR(13) NOT NULL,
