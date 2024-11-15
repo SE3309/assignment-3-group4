@@ -18,6 +18,11 @@ LEFT JOIN
 LEFT JOIN 
     bookGenre ON book.ISBN = bookGenre.ISBN;
 
+-- INSERT INTO BookSummary (ISBN, title, publishedDate, author, genreType)
+-- VALUES 
+-- (978137392490, 'Second Book', 2023-04-14, 'random name', 'horror'),-- 
+-- (978127392490, 'Third Book', 2023-05-24, 'another random name', 'comedy');
+
 -- Insert or update test data for BookSummary
 INSERT INTO book (ISBN, title, publishedDate)
 VALUES 
