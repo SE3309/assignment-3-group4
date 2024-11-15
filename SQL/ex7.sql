@@ -1,9 +1,10 @@
 -- CREATE DATABASE IF NOT EXISTS library;
 -- USE library;
 
+SET FOREIGN_KEY_CHECKS=0;
+
 DROP VIEW IF EXISTS BookSummary;
 
--- Create the first view
 CREATE VIEW BookSummary AS
 SELECT 
     book.ISBN,
@@ -23,7 +24,6 @@ LEFT JOIN
 -- (978137392490, 'Second Book', 2023-04-14, 'random name', 'horror'),-- 
 -- (978127392490, 'Third Book', 2023-05-24, 'another random name', 'comedy');
 
--- Insert or update test data for BookSummary
 INSERT INTO book (ISBN, title, publishedDate)
 VALUES 
     ('9781234567890', 'New Book', '2024-01-01'),
@@ -46,14 +46,12 @@ VALUES
 ON DUPLICATE KEY UPDATE 
     genreType = VALUES(genreType);
 
--- Query the BookSummary view
 SELECT * FROM BookSummary
 WHERE publishedDate > '2000-01-01'
 LIMIT 5;
 
 DROP VIEW IF EXISTS BorrowerDetails;
 
--- Create the second view
 CREATE VIEW BorrowerDetails AS
 SELECT 
     borrower.borrowerID,
@@ -68,7 +66,6 @@ LEFT JOIN
 LEFT JOIN 
     borrowings ON borrower.borrowerID = borrowings.borrowerID;
 
--- Insert or update test data for BorrowerDetails
 INSERT INTO borrower (borrowerID, bEmail, membershipDate, bPassword)
 VALUES 
     (100, 'newemail@example.com', '2024-01-01', 'securepassword')
@@ -90,7 +87,6 @@ ON DUPLICATE KEY UPDATE
     status = VALUES(status);
 
 
--- Query the BorrowerDetails view
 SELECT bd.borrowerID, bd.bName, bd.borrowingID
 FROM BorrowerDetails bd
 JOIN borrowings b ON bd.borrowingID = b.borrowingID
