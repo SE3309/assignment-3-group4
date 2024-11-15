@@ -2,15 +2,27 @@
 # TABLE STRUCTURE FOR: book
 #
 SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS `bookBorrowings`;
+DROP TABLE IF EXISTS `bookGenre`;
+DROP TABLE IF EXISTS `bookAuthor`;
+DROP TABLE IF EXISTS `reviews`;
+DROP TABLE IF EXISTS `borrowings`;
+DROP TABLE IF EXISTS `bBorrowings`;
+DROP TABLE IF EXISTS `fines`;
+DROP TABLE IF EXISTS `borrowerContact`;
+DROP TABLE IF EXISTS `borrower`;
+DROP TABLE IF EXISTS `historyLog`;
+DROP TABLE IF EXISTS `staff`;
+DROP TABLE IF EXISTS `genre`;
 DROP TABLE IF EXISTS `book`;
 
 CREATE TABLE `book` (
-  `ISBN` char(13) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `publishedDate` date NOT NULL,
-  PRIMARY KEY (`ISBN`),
-  UNIQUE KEY `ISBN` (`ISBN`)
+  `ISBN` CHAR(13) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `publishedDate` DATE NOT NULL,
+  PRIMARY KEY (`ISBN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00305aec-e122', 'To Kill A Mockingbird', '1960-07-11');
 INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('00651b6f-c3e5', 'Dork Diaries', '2009-06-02');
@@ -2021,12 +2033,12 @@ INSERT INTO `book` (`ISBN`, `title`, `publishedDate`) VALUES ('fffbd714-fdfe', '
 DROP TABLE IF EXISTS `bookAuthor`;
 
 CREATE TABLE `bookAuthor` (
-  `ISBN` char(13) NOT NULL,
-  `author` varchar(255) NOT NULL,
-  PRIMARY KEY (`ISBN`),
-  UNIQUE KEY `ISBN` (`ISBN`),
-  CONSTRAINT `bookAuthor_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`)
+  `ISBN` CHAR(13) NOT NULL,
+  `author` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`ISBN`, `author`),
+  FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00305aec-e122', 'Harper Lee');
 INSERT INTO `bookAuthor` (`ISBN`, `author`) VALUES ('00651b6f-c3e5', 'Rachel Renée Russell');
@@ -4085,13 +4097,13 @@ INSERT INTO `bookBorrowings` (`ISBN`, `borrowingID`) VALUES ('03570cb1-a242', 30
 DROP TABLE IF EXISTS `bookGenre`;
 
 CREATE TABLE `bookGenre` (
-  `ISBN` char(13) NOT NULL,
-  `genreType` varchar(255) NOT NULL,
+  `ISBN` CHAR(13) NOT NULL,
+  `genreType` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`ISBN`),
-  KEY `genreType` (`genreType`),
-  CONSTRAINT `bookGenre_ibfk_1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`),
-  CONSTRAINT `bookGenre_ibfk_2` FOREIGN KEY (`genreType`) REFERENCES `genre` (`genreType`)
+  FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`),
+  FOREIGN KEY (`genreType`) REFERENCES `genre` (`genreType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('00305aec-e122', 'Thriller');
 INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('0285872e-4cd1', 'ab');
@@ -6102,13 +6114,13 @@ INSERT INTO `bookGenre` (`ISBN`, `genreType`) VALUES ('fffbd714-fdfe', 'voluptat
 DROP TABLE IF EXISTS `borrower`;
 
 CREATE TABLE `borrower` (
-  `borrowerID` int(11) NOT NULL AUTO_INCREMENT,
-  `membershipDate` date NOT NULL,
-  `bPassword` varchar(255) NOT NULL,
-  `bEmail` varchar(255) NOT NULL,
-  PRIMARY KEY (`borrowerID`),
-  UNIQUE KEY `bEmail` (`bEmail`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `borrowerID` INT(11) NOT NULL AUTO_INCREMENT,
+  `membershipDate` DATE NOT NULL,
+  `bPassword` VARCHAR(255) NOT NULL,
+  `bEmail` VARCHAR(255) NOT NULL UNIQUE,
+  PRIMARY KEY (`borrowerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (1, '2023-10-06', '494eddaebcdf9a61bebfdb35199934d1ec5fe960', 'lincoln29@gmail.com');
 INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) VALUES (2, '1972-02-26', '21caeb119ce75f6b0a9ff8064d73dfd5974cc4e2', 'reginald54@uwo.ca');
@@ -6319,12 +6331,12 @@ INSERT INTO `borrower` (`borrowerID`, `membershipDate`, `bPassword`, `bEmail`) V
 DROP TABLE IF EXISTS `borrowerContact`;
 
 CREATE TABLE `borrowerContact` (
-  `bEmail` varchar(255) NOT NULL,
-  `bName` varchar(255) NOT NULL,
+  `bEmail` VARCHAR(255) NOT NULL,
+  `bName` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`bEmail`),
-  UNIQUE KEY `bEmail` (`bEmail`),
-  CONSTRAINT `borrowerContact_ibfk_1` FOREIGN KEY (`bEmail`) REFERENCES `borrower` (`bEmail`)
+  FOREIGN KEY (`bEmail`) REFERENCES `borrower` (`bEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('adella73@example.com', 'Loy Simonis');
 INSERT INTO `borrowerContact` (`bEmail`, `bName`) VALUES ('adonis85@example.net', 'Emilie Lang');
@@ -6582,21 +6594,18 @@ INSERT INTO `bBorrowings` VALUES
 DROP TABLE IF EXISTS `borrowings`;
 
 CREATE TABLE `borrowings` (
-  `borrowingID` int(11) NOT NULL AUTO_INCREMENT,
-  `borrowDate` date NOT NULL,
-  `returnDate` date,
-  `status` enum('On Hold','Returned','Late') NOT NULL,
-  `borrowerID` int(11) NOT NULL,
-  `ISBN` char(13) NOT NULL,
-  `fineID` int(11) DEFAULT NULL,
+  `borrowingID` INT(11) NOT NULL AUTO_INCREMENT,
+  `borrowDate` DATE NOT NULL,
+  `returnDate` DATE,
+  `status` ENUM('On Hold', 'Returned', 'Late') NOT NULL,
+  `borrowerID` INT(11) NOT NULL,
+  `ISBN` CHAR(13) NOT NULL,
+  `fineID` INT(11) DEFAULT NULL,
   PRIMARY KEY (`borrowingID`),
-  KEY `borrowerID` (`borrowerID`),
-  KEY `ISBN` (`ISBN`),
-  KEY `fineID` (`fineID`),
-  CONSTRAINT `borrowings_ibfk_1` FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`),
-  CONSTRAINT `borrowings_ibfk_2` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`),
-  CONSTRAINT `borrowings_ibfk_3` FOREIGN KEY (`fineID`) REFERENCES `fines` (`fineID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`),
+  FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (1, '1992-11-16', '2005-08-04', 'Late', 1, '00305aec-e122', 1);
 INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `borrowerID`, `ISBN`, `fineID`) VALUES (2, '2004-07-08', '2004-11-26', 'On Hold', 2, '00651b6f-c3e5', 2);
@@ -6637,14 +6646,14 @@ INSERT INTO `borrowings` (`borrowingID`, `borrowDate`, `returnDate`, `status`, `
 DROP TABLE IF EXISTS `fines`;
 
 CREATE TABLE `fines` (
-  `fineID` int(11) NOT NULL AUTO_INCREMENT,
-  `borrowerID` int(11) NOT NULL,
-  `dueDate` date NOT NULL,
-  `datePaid` date DEFAULT NULL,
+  `fineID` INT(11) NOT NULL AUTO_INCREMENT,
+  `borrowerID` INT(11) NOT NULL,
+  `dueDate` DATE NOT NULL,
+  `datePaid` DATE DEFAULT NULL,
   PRIMARY KEY (`fineID`),
-  KEY `borrowerID` (`borrowerID`),
-  CONSTRAINT `fines_ibfk_1` FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  FOREIGN KEY (`borrowerID`) REFERENCES `borrower` (`borrowerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (1, 1, '2022-10-25', '2022-10-27');
 INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (2, 2, '1993-09-27', '1993-09-30');
@@ -6705,11 +6714,11 @@ INSERT INTO `fines` (`fineID`, `borrowerID`, `dueDate`, `datePaid`) VALUES (50, 
 DROP TABLE IF EXISTS `genre`;
 
 CREATE TABLE `genre` (
-  `genreType` varchar(255) NOT NULL,
-  `genreDescription` varchar(255) NOT NULL,
-  PRIMARY KEY (`genreType`),
-  UNIQUE KEY `genreType` (`genreType`)
+  `genreType` VARCHAR(255) NOT NULL,
+  `genreDescription` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`genreType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('ab', 'Reprehenderit et quia aut placeat voluptatibus suscipit. Excepturi quia debitis porro eaque odit. Est nam dignissimos non quod nulla iusto. Corrupti corrupti sit animi tempore perspiciatis voluptate ut ratione.');
 INSERT INTO `genre` (`genreType`, `genreDescription`) VALUES ('cupiditate', 'Saepe exercitationem voluptate magni laudantium. In aut harum natus iste consequatur placeat. Quasi veritatis eos in quam qui. Atque magnam in assumenda officiis ipsum commodi.');
@@ -8886,13 +8895,13 @@ INSERT INTO `reviews` (`reviewID`, `reviewDate`, `borrowerID`, `reviewText`, `ra
 DROP TABLE IF EXISTS `staff`;
 
 CREATE TABLE `staff` (
-  `staffID` int(11) NOT NULL AUTO_INCREMENT,
-  `sEmail` varchar(255) NOT NULL,
-  `sPassword` varchar(255) NOT NULL,
-  `jobType` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`staffID`),
-  UNIQUE KEY `sEmail` (`sEmail`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `staffID` INT(11) NOT NULL AUTO_INCREMENT,
+  `sEmail` VARCHAR(255) NOT NULL UNIQUE,
+  `sPassword` VARCHAR(255) NOT NULL,
+  `jobType` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`staffID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (1, 'mfeeney@gmail.com', '86a6b7127c2bc89405b356a441551a81182e9d0d', 'Librarian');
 INSERT INTO `staff` (`staffID`, `sEmail`, `sPassword`, `jobType`) VALUES (2, 'forn@uwo.ca', 'a1ab831f5448a66090a8f3d3094234f54b5344f9', 'Admin');
@@ -8951,4 +8960,35 @@ INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('price13@example.org', 'Mr
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('schumm.eliza@example.com', 'Jasmin Champlin Sr.');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('ullrich.albert@gmail.com', 'Edwardo Farrell');
 
+
+
+CREATE VIEW BookSummary AS
+SELECT 
+    book.ISBN,
+    book.title,
+    book.publishedDate,
+    bookAuthor.author,
+    bookGenre.genreType
+FROM
+    book
+LEFT JOIN 
+    bookAuthor ON book.ISBN = bookAuthor.ISBN
+LEFT JOIN 
+    bookGenre ON book.ISBN = bookGenre.ISBN;
+
+CREATE VIEW BorrowerDetails AS
+SELECT 
+    borrower.borrowerID,
+    borrower.bEmail,
+    borrowerContact.bName,
+    borrower.membershipDate,
+    borrowings.borrowingID
+FROM 
+    borrower
+LEFT JOIN 
+    borrowerContact ON borrower.bEmail = borrowerContact.bEmail
+LEFT JOIN 
+    borrowings ON borrower.borrowerID = borrowings.borrowerID;
+
+SET FOREIGN_KEY_CHECKS=1;
 
