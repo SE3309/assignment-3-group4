@@ -2,6 +2,8 @@
 # TABLE STRUCTURE FOR: book
 #
 SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS `staffContact`;
+DROP TABLE IF EXISTS `staff`;
 DROP TABLE IF EXISTS `bookBorrowings`;
 DROP TABLE IF EXISTS `bookGenre`;
 DROP TABLE IF EXISTS `bookAuthor`;
@@ -12,9 +14,9 @@ DROP TABLE IF EXISTS `fines`;
 DROP TABLE IF EXISTS `borrowerContact`;
 DROP TABLE IF EXISTS `borrower`;
 DROP TABLE IF EXISTS `historyLog`;
-DROP TABLE IF EXISTS `staff`;
 DROP TABLE IF EXISTS `genre`;
 DROP TABLE IF EXISTS `book`;
+
 
 CREATE TABLE `book` (
   `ISBN` CHAR(13) NOT NULL,
@@ -8960,35 +8962,4 @@ INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('price13@example.org', 'Mr
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('schumm.eliza@example.com', 'Jasmin Champlin Sr.');
 INSERT INTO `staffContact` (`sEmail`, `name`) VALUES ('ullrich.albert@gmail.com', 'Edwardo Farrell');
 
-
-
-CREATE VIEW BookSummary AS
-SELECT 
-    book.ISBN,
-    book.title,
-    book.publishedDate,
-    bookAuthor.author,
-    bookGenre.genreType
-FROM
-    book
-LEFT JOIN 
-    bookAuthor ON book.ISBN = bookAuthor.ISBN
-LEFT JOIN 
-    bookGenre ON book.ISBN = bookGenre.ISBN;
-
-CREATE VIEW BorrowerDetails AS
-SELECT 
-    borrower.borrowerID,
-    borrower.bEmail,
-    borrowerContact.bName,
-    borrower.membershipDate,
-    borrowings.borrowingID
-FROM 
-    borrower
-LEFT JOIN 
-    borrowerContact ON borrower.bEmail = borrowerContact.bEmail
-LEFT JOIN 
-    borrowings ON borrower.borrowerID = borrowings.borrowerID;
-
-SET FOREIGN_KEY_CHECKS=1;
 
