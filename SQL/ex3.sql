@@ -1,39 +1,48 @@
-INSERT INTO book (ISBN, title, publishedDate) 
-SELECT '9780062420701', 'To Kill A Mockingbird', '1960-07-11'
-WHERE NOT EXISTS (
-    SELECT 1 FROM book WHERE ISBN = '9780062420701'
+SET SQL_SAFE_UPDATES = 0;
+
+INSERT INTO borrowings (borrowDate, returnDate, status, borrowerID, ISBN)
+SELECT CURDATE(), CURDATE() + INTERVAL 14 DAY, 'On Hold', br.borrowerID, b.ISBN
+FROM borrowings br
+JOIN bookGenre bg ON br.ISBN = bg.ISBN
+JOIN book b ON bg.genreType = (
+    SELECT bg2.genreType
+    FROM borrowings br2
+    JOIN bookGenre bg2 ON br2.ISBN = bg2.ISBN
+    WHERE br2.borrowerID = br.borrowerID
+    GROUP BY bg2.genreType
+    ORDER BY COUNT(*) DESC
+    LIMIT 1
+)
+JOIN (
+    SELECT ISBN, AVG(rating) AS avgRating
+    FROM reviews
+    GROUP BY ISBN
+    HAVING avgRating >= 4.5
+) r ON b.ISBN = r.ISBN
+WHERE b.ISBN NOT IN (
+    SELECT ISBN
+    FROM borrowings
+    WHERE status IN ('On Hold', 'Late')
+)
+AND NOT EXISTS (
+    SELECT 1 
+    FROM borrowings br3 
+    WHERE br3.borrowerID = br.borrowerID 
+      AND br3.ISBN = b.ISBN
 );
 
-INSERT INTO book (ISBN, title, publishedDate)
-SELECT '9781416980063', 'Dork Diaries', '2009-06-02'
-WHERE NOT EXISTS (
-    SELECT 1 FROM book WHERE ISBN = '9781416980063'
-)
-UNION ALL
-SELECT '9780439064873', 'Harry Potter and the Chamber of Secrets', '1998-06-02'
-WHERE NOT EXISTS (
-    SELECT 1 FROM book WHERE ISBN = '9780439064873'
-)
-UNION ALL
-SELECT '9780439559818', 'Geronimo Stilton: The Curse of the Cheese Pyramid', '2004-07-01'
-WHERE NOT EXISTS (
-    SELECT 1 FROM book WHERE ISBN = '9780439559818'
-);
-    
-INSERT INTO book (ISBN, title, publishedDate)
-SELECT * FROM (
-    SELECT '9780359199259', 'Murder on the Orient Express', '1934-01-01'
-    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780359199259')
-    
-    UNION ALL
-    
-    SELECT '9780141036137', 'Animal Farm', '1945-08-17'
-    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780141036137')
-    
-    UNION ALL
-    
-    SELECT '9780375714832', 'Persepolis', '2007-06-27'
-    WHERE NOT EXISTS (SELECT 1 FROM book WHERE ISBN = '9780375714832')
-) AS dummy;
+UPDATE borrowings
+SET status = 'Late'
+WHERE returnDate < CURDATE() AND status = 'On Hold';
 
-SELECT * FROM book;
+WITH LowRatedBooks AS (
+    SELECT ISBN
+    FROM reviews
+    GROUP BY ISBN
+    HAVING COUNT(reviewID) < 5 AND AVG(rating) < 2
+)
+
+DELETE FROM reviews
+WHERE ISBN IN (SELECT ISBN FROM LowRatedBooks);
+ 
+SET SQL_SAFE_UPDATES = 1;
